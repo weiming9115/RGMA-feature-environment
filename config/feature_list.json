@@ -1,0 +1,14 @@
+{
+  "feature" : [
+    {
+        "name":"TC_TempestExtremes",
+        "feature_sources": "ERA5",
+        "feature_environment_sources": "ERA5",
+        "track_frequency": "6-hourly",
+        "is_feature_track": "True",
+        "is_feature_mask": "False",
+        "track_data": "/neelin2020/TempestExtremes/TC/ERA5_TC_tracks_2014.nc",
+        "box_size_degree": "10" 
+    }
+   ]
+}

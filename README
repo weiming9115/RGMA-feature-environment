@@ -1,0 +1,13 @@
+#############################################
+    Module for feature-enviroment dataset  
+#############################################
+
+0. make sure the data directory structure matches 
+   the desired one
+
+1. modify the variable_list.json
+
+2  modify the feature_list.json
+
+2. run_feature_enviroment.py
+   "python run_feature_environment.py"

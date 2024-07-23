@@ -1,0 +1,24 @@
+
+-----------------
+feature_list.json
+-----------------
+- assign whether the feature was tracked in time or identified 
+- if tracked --> set "isfeature_track" = True
+- if identified at a single time --> set "isfeature_track" = False
+
+- assign whether the feature is spatially bounded (a 2-D binary mask of the feature) 
+- if bounded --> set "isfeature_mask" = True
+
+- assign "track_data" that will be read as input and a copy of it will be saved. 
+- assgin the "box_size_degree", which indicates the size of looking window of each frame
+  centered on the feature centroid.
+
+------------------
+variable_list.json
+-----------------
+
+***** note ******
+The variable directory should be structured by year and the file name should include clear time information
+,for example, "/YYYY/era-5_variable_YYYY.MM.nc" or "/YYYY/era-5_YYYY.MM.DD.nc" or "/YYYY/GPM-IMERG_YYYY.MM.DD.mm.nc".
+
+- assign variables that will be extracted and included in the feature-environment dataset
