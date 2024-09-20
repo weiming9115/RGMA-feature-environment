@@ -1,0 +1,14 @@
+{
+  "feature" : [
+     {
+        "name":"MCS_FLEXTRKR_tropics",
+        "feature_sources": "GPM-IMERG",
+        "feature_environment_sources": "ERA5",
+        "track_frequency": "hourly",
+        "is_feature_track": "True",
+        "is_feature_mask": "False",
+        "track_data": "/scratch/wmtsai/temp_mcs/mcs_stats/mcs_tracks_non2mcs/featenv_track_input/MCS_FLEXTRKR_tropics30NS.2004.nc",
+        "box_size_degree": "10" 
+    }
+   ]
+}
