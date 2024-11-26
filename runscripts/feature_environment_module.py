@@ -1,10 +1,10 @@
 import os
-ncore = "1"
-os.environ["OMP_NUM_THREADS"] = ncore
-os.environ["OPENBLAS_NUM_THREADS"] = ncore
-os.environ["MKL_NUM_THREADS"] = ncore
-os.environ["VECLIB_MAXIMUM_THREADS"] = ncore
-os.environ["NUMEXPR_NUM_THREADS"] = ncore
+#ncore = "1"
+#os.environ["OMP_NUM_THREADS"] = ncore
+#os.environ["OPENBLAS_NUM_THREADS"] = ncore
+#os.environ["MKL_NUM_THREADS"] = ncore
+#os.environ["VECLIB_MAXIMUM_THREADS"] = ncore
+#os.environ["NUMEXPR_NUM_THREADS"] = ncore
 import sys
 import xarray as xr
 import numpy as np
@@ -346,69 +346,4 @@ class ds_feature_environment:
            
             return data_track_xr 
         
-    def get_environment_vars_single(self, object_id, lat_range, lon_range, p_level=None):
-        
-        if len(self.locate_env_data) == 0:
-            raise ValueError("No environmental data located. Please call locate_env_data() first")
-        
-        else:
-            
-            obj_info = self.get_object_info(object_id=object_id)
-        
-            lat_cen = obj_info.meanlat.values # MCS lat centroid
-            lon_cen = obj_info.meanlon
-            lon_cen = lon_cen.where(lon_cen >= 0, lon_cen+360) # converting to 0-360
-            lon_cen = lon_cen.values
-
-            data_chunk = []
-                        
-            time64 = obj_info.base_time.values
-            timestamp = (time64 - np.datetime64('1970-01-01T00:00:00Z')) / np.timedelta64(1, 's')
-            time_sel = datetime.utcfromtimestamp(timestamp)
-
-            # determine the env_data to be loaded            
-            year = str(time_sel.year)
-            month = str(time_sel.month).zfill(2)
-            day = str(time_sel.day).zfill(2)
-            hour = str(time_sel.hour).zfill(2)
-
-            data_var = []
-            for var in [i for i in self.locate_env_data.keys()]:
-                data_dir = Path(str(self.locate_env_data[var]))
-                filename = data_dir /'{}'.format(year)/ 'era-5.{}.{}.{}.nc'.format(var,year,month)
-                data_file = xr.open_dataset(filename)
-                data_file = coordinates_processors(data_file)
-
-                # find nearest ERA5 grid for the MCS centroid
-                idx_sel = np.argmin(np.abs(data_file.lon.values - lon_cen))
-                lon_cen_reset = data_file.lon[idx_sel]
-                idx_sel = np.argmin(np.abs(data_file.lat.values - lat_cen))
-                lat_cen_reset = data_file.lat[idx_sel]
-
-                lat_min = lat_cen_reset - lat_range/2
-                lat_max = lat_cen_reset + lat_range/2
-                lon_min = lon_cen_reset - lon_range/2
-                lon_max = lon_cen_reset + lon_range/2
-
-                data_extract = data_file.sel(lat=slice(lat_min, lat_max),
-                                                    lon=slice(lon_min, lon_max))
-                data_extract = data_extract.sel(time=time_sel, method='nearest')
-
-                # x-y grid poiints coordinate not lat-lon 
-                dlon = (data_file.lon[1] - data_file.lon[0]).values
-                dlat = (data_file.lat[1] - data_file.lat[0]).values
-                data_extract_xy = data_extract.interp(lon=np.linspace(data_extract.lon.min(), data_extract.lon.max(),int(lon_range/dlon)+1),
-                                          lat=np.linspace(data_extract.lat.min(), data_extract.lat.max(),int(lat_range/dlat)+1))
-                # converting lat-lon into x-y coordinates
-                data_extract_xy = data_extract_xy.assign_coords(x=("lon", np.arange(len(data_extract_xy.lon))), y=("lat", np.arange(len(data_extract_xy.lat))))
-                data_extract_xy = data_extract_xy.swap_dims({'lon':'x', 'lat': 'y'}).drop('time')
-
-                if p_level is not None: # for 3-D data ERA5 only, with vertical dim. named "level"
-
-                    data_extract_xy = data_extract_xy.sel(level=p_level) # update data_extract which is single layer
-
-                data_var.append(data_extract_xy)
-            data_var_merged = xr.merge(data_var) # merge variables into one xr.dataset
-                                  
-        return data_var_merged
         

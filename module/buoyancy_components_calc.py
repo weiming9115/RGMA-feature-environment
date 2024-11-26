@@ -253,7 +253,7 @@ if __name__ == '__main__':
 
     catalog_name = sys.argv[1]
     year = sys.argv[2]
-    featenv_dir = Path('/scratch/wmtsai/featenv_analysis/dataset/{}/{}'.format(catalog_name, year))
+    featenv_dir = Path('/pscratch/sd/w/wmtsai/featenv_analysis/dataset/{}/{}'.format(catalog_name, year))
     print('feature_environment_dir: ', featenv_dir)
     var3d_dir = featenv_dir / 'environment_catalogs/VARS_3D'
     var2d_dir = featenv_dir / 'environment_catalogs/VARS_2D'
@@ -268,13 +268,14 @@ if __name__ == '__main__':
     # loop for tracks
     BL_merged = []
     for track in data_T.tracks.values:
-    
+  
+#        print('track processing: {}'.format(track))
         BL_phase = []
         # loop for time (phase)
         for t in data_T.time.values:
         
-            T = data_T.sel(tracks=track, time=t).t
-            q = data_q.sel(tracks=track, time=t).q
+            T = data_T.sel(tracks=track, time=t, level=slice(100,1000)).t
+            q = data_q.sel(tracks=track, time=t, level=slice(100,1000)).q
             sp = data_sp.sel(tracks=track, time=t).SP/100 # hPa
             T2m = data_t2m.sel(tracks=track, time=t).VAR_2T
             d2m = data_d2m.sel(tracks=track, time=t).VAR_2D

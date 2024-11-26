@@ -21,9 +21,9 @@ def process_vars_env_writeout(track, var):
 
     try:
         ds_env_vars = featenv.get_environment_vars_track(var_name=var, track_id=track,
-                                                     lat_range=featenv.box_size_degree, lon_range=featenv.box_size_degree)
+                                                         lat_range=featenv.box_size_degree, lon_range=featenv.box_size_degree)
     except:
-#        raise Exception('check track_id: {}'.format(track))
+
         print('track_id: {}'.format(track))
         dlon = featenv.lon_env[1] - featenv.lon_env[0]
         dlat = featenv.lat_env[1] - featenv.lat_env[0]
@@ -49,18 +49,16 @@ def process_vars_env_writeout(track, var):
 
 if __name__ == '__main__':
 
-#    config = int(sys.argv[1]) # year of tracks
-
     start_time = datetime.now()
 
     sys.path.append('/pscratch/sd/w/wmtsai/featenv_analysis')
     os.chdir('/pscratch/sd/w/wmtsai/featenv_analysis/config/config_track_env')
-    from feature_environment_module import *
+    from feature_environment_module_CMIP import *
     from multiprocessing import Pool
 
     # read feature and variable settings from .json files
     feature_json = open('feature_list.jsonc')
-    variable_json = open('varible_list.jsonc')
+    variable_json = open('varible_list.CMIP6.jsonc')
     feature_settings = json.load(feature_json)
     variable_settings = json.load(variable_json)
 
@@ -75,14 +73,28 @@ if __name__ == '__main__':
     featenv.feature_track = eval(feature_settings['feature'][0]['is_feature_track'])
     featenv.feature_mask = eval(feature_settings['feature'][0]['is_feature_mask'])
     featenv.box_size_degree = int(feature_settings['feature'][0]['box_size_degree'])    
+    featenv.is_same_latlon = eval(feature_settings['feature'][0]['is_same_latlon'])
 
     # matching default ERA-5
-    featenv.lon_env = np.arange(0,360,0.25)
-    featenv.lat_env = np.arange(-90,90.25,0.25)
+    if featenv.is_same_latlon:
+        var_name = variable_settings['variable_inputs'][0]['varname_infile']
+        var_dir = Path(variable_settings['variable_inputs'][0]['var_dir'])
+        files = list(var_dir.glob('*.nc'))
+        ds = xr.open_dataset(files[0]) # read the data to get lat-lon information
+        try:
+            featenv.lon_env = ds.lon.values
+            featenv.lat_env = ds.lat.values
+        except:
+            featenv.lon_env = ds.longitude.values
+            featenv.lat_env = ds.latitude.values
+
+    else:
+        print('Default coordinated lat/lon: ERA-5, 0.25-deg.')
+        featenv.lon_env = np.arange(0,360,0.25)
+        featenv.lat_env = np.arange(-90,90.25,0.25)
 
     # locate and read the preprocessed track file
-    featenv.track_data =  xr.open_dataset(feature_settings['feature'][0]['track_data'])
-    # check dimensions: coords=[ tracks, time ] variables=[ base_time, meanlat, meanlon ]
+    featenv.track_data =  xr.open_dataset(feature_settings['feature'][0]['track_data'], decode_times=True)
     coords_track = []
     vars_track = []
     for i in featenv.track_data.dims:
@@ -101,7 +113,7 @@ if __name__ == '__main__':
 
     # create directories according to the above descriptions
     year_process = str(featenv.track_data.isel(tracks=0).base_time[0].values)[:4] # YYYY
-    main_dir = '/scratch/wmtsai/featenv_analysis/dataset/{}/{}/'.format(featenv.name, year_process)
+    main_dir = '/pscratch/sd/w/wmtsai/featenv_analysis/dataset/{}/{}/'.format(featenv.name, year_process)
     featenv.create_featenv_directory(main_dir)
 
     (featenv.track_data).to_netcdf(featenv.track_dir / 'track_geoinfo.nc')
@@ -136,10 +148,12 @@ if __name__ == '__main__':
 
     # loops for designated variables:
     for var in [i for i in featenv.locate_env_data.keys()]:
-
+       
+#        results = []
         print('current variable: {}'.format(var))
-#        process_vars_env_writeout(track_sel[-1], var=var)
-        num_process = 12 # assign number of preocesses for this task
+#        for ii in range(len(track_sel)):
+#            results.append(process_vars_env_writeout(track_sel[ii], var=var))
+        num_process = 5 # assign number of preocesses for this task
         pool = Pool(processes=num_process)
         result_list = pool.map_async(partial(process_vars_env_writeout, var=var), track_sel)
         pool.close()

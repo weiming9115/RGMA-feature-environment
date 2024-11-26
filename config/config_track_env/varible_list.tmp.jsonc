@@ -1,0 +1,70 @@
+{
+  "variable_inputs": [
+      {
+        "var_name": "T",
+        "varname_infile": "t",
+        "specified_level" : "None",
+        "format_saved": "monthly",
+        "freqency": "hourly",
+        "var_dir": "/neelin2020/ERA-5/NC_FILES/",
+        "file_str": "era-5.X.YYYY.MM.nc"
+      },
+      {
+        "var_name": "omega",
+        "varname_infile": "w",
+        "specified_level" : "None",
+        "format_saved": "monthly",
+        "freqency": "hourly",
+        "var_dir": "/scratch/wmtsai/ERA-5/NC_FILES/",
+        "file_str": "era-5.X.YYYY.MM.nc"
+      },
+      {
+        "var_name": "2t",
+        "varname_infile": "VAR_2T",
+        "format_saved": "monthly",
+        "freqency": "hourly",
+        "var_dir": "/neelin2020/ERA-5/NC_FILES/",
+        "file_str": "era-5.X.YYYY.MM.nc"
+      },
+      {
+        "var_name": "2d",
+        "varname_infile": "VAR_2D",
+        "format_saved": "monthly",
+        "freqency": "hourly",
+        "var_dir": "/neelin2020/ERA-5/NC_FILES/",
+        "file_str": "era-5.X.YYYY.MM.nc"
+      },
+      {
+        "var_name": "sp",
+        "varname_infile": "SP",
+        "format_saved": "monthly",
+        "freqency": "hourly",
+        "var_dir": "/neelin2020/ERA-5/NC_FILES/",
+        "file_str": "era-5.X.YYYY.MM.nc"
+      },
+      {
+        "var_name": "precipitation",
+        "varname_infile": "precipitation",
+        "format_saved": "hourly",
+        "freqency": "hourly",
+        "var_dir": "/neelin2020/mcs_flextrkr/",
+        "file_str": "mcstrack_YYYYMMDD_HH30.nc"
+      },
+      {
+        "var_name": "tb",
+        "varname_infile": "tb",
+        "format_saved": "hourly",
+        "freqency": "hourly",
+        "var_dir": "/neelin2020/mcs_flextrkr/",
+        "file_str": "mcstrack_YYYYMMDD_HH30.nc"
+      },
+      {
+        "var_name": "cloudtracknumber_nomergesplit",
+        "varname_infile": "cloudtracknumber_nomergesplit",
+        "format_saved": "hourly",
+        "freqency": "hourly",
+        "var_dir": "/neelin2020/mcs_flextrkr/",
+        "file_str": "mcstrack_YYYYMMDD_HH30.nc"
+      }
+  ]   
+}
