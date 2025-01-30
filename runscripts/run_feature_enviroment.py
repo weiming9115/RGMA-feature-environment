@@ -1,10 +1,10 @@
 import os
-#ncore = "1"
-#os.environ["OMP_NUM_THREADS"] = ncore
-#os.environ["OPENBLAS_NUM_THREADS"] = ncore
-#os.environ["MKL_NUM_THREADS"] = ncore
-#os.environ["VECLIB_MAXIMUM_THREADS"] = ncore
-#os.environ["NUMEXPR_NUM_THREADS"] = ncore
+ncore = "1"
+os.environ["OMP_NUM_THREADS"] = ncore
+os.environ["OPENBLAS_NUM_THREADS"] = ncore
+os.environ["MKL_NUM_THREADS"] = ncore
+os.environ["VECLIB_MAXIMUM_THREADS"] = ncore
+os.environ["NUMEXPR_NUM_THREADS"] = ncore
 import sys
 import json
 import xarray as xr
@@ -42,7 +42,8 @@ def process_vars_env_writeout(track, var):
                                      lon=(['time','x'],np.zeros((length_t,nlon_grid))*np.nan),
                                      lat=(['time','x'],np.zeros((length_t,nlat_grid))*np.nan))
                         )
-        ds_env_vars = ds_env_vars.rename_vars({'var_tmp':var})
+        # WT 20250124 
+        ds_env_vars = ds_env_vars.rename_vars({'var_tmp':featenv.variable_infile[var]})
         ds_env_vars.coords['tracks'] = [track]
 
     return ds_env_vars
@@ -53,8 +54,8 @@ if __name__ == '__main__':
 
     start_time = datetime.now()
 
-    sys.path.append('/pscratch/sd/w/wmtsai/featenv_analysis')
-    os.chdir('/pscratch/sd/w/wmtsai/featenv_analysis/config/config_track_env')
+    sys.path.append('/scratch/wmtsai/featenv_analysis/runscripts')
+    os.chdir('/scratch/wmtsai/featenv_analysis/config/config_track_env')
     from feature_environment_module import *
     from multiprocessing import Pool
 

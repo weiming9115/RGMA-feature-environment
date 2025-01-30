@@ -1,70 +1,12 @@
 {
   "variable_inputs": [
       {
-        "var_name": "ta",
-        "varname_infile": "ta",
-        "specified_level" : "None",
-        "format_saved": "yearly",
-        "freqency": "6-hourly",
-        "var_dir": "/global/cfs/cdirs/m4374/input_datasets/year2_EC-Earth3P-HR_highressst-present_r3i1f1p1/CMIP6HighResMIPEC-Earth-ConsortiumEC-Earth3P-HRhighresSST-presentr3i1p1f1grv20190509/ta/",
-        "file_str": "ta_6hrPlevPt_EC-Earth3P-HR_highresSST-present_r3i1p1f1_gr_YYYY01010000-YYYY12311800.nc"
-      },
-      {
-        "var_name": "hus",
-        "varname_infile": "hus",
-        "specified_level" : "None",
-        "format_saved": "yearly",
-        "freqency": "6-hourly",
-        "var_dir": "/global/cfs/cdirs/m4374/input_datasets/year2_EC-Earth3P-HR_highressst-present_r3i1f1p1/CMIP6HighResMIPEC-Earth-ConsortiumEC-Earth3P-HRhighresSST-presentr3i1p1f1grv20190509/hus/",
-        "file_str": "hus_6hrPlevPt_EC-Earth3P-HR_highresSST-present_r3i1p1f1_gr_YYYY01010000-YYYY12311800.nc"
-      },
-      {
-        "var_name": "tas",
-        "varname_infile": "tas",
-        "format_saved": "yearly",
-        "freqency": "3-hourly",
-        "var_dir": "/global/cfs/cdirs/m4374/input_datasets/year2_EC-Earth3P-HR_highressst-present_r3i1f1p1/CMIP6HighResMIPEC-Earth-ConsortiumEC-Earth3P-HRhighresSST-presentr3i1p1f1grv20190509/tas/",
-        "file_str": "tas_6hrPlevPt_EC-Earth3P-HR_highresSST-present_r3i1p1f1_gr_YYYY01010000-YYYY12311800.nc"
-      },
-      {
-        "var_name": "huss",
-        "varname_infile": "huss",
-        "format_saved": "yearly",
-        "freqency": "3-hourly",
-        "var_dir": "/global/cfs/cdirs/m4374/input_datasets/year2_EC-Earth3P-HR_highressst-present_r3i1f1p1/CMIP6HighResMIPEC-Earth-ConsortiumEC-Earth3P-HRhighresSST-presentr3i1p1f1grv20190509/huss",
-        "file_str": "huss_6hrPlevPt_EC-Earth3P-HR_highresSST-present_r3i1p1f1_gr_YYYY01010000-YYYY12311800.nc"
-      },
-      {
-        "var_name": "ps",
-        "varname_infile": "ps",
-        "format_saved": "yearly",
-        "freqency": "3-hourly",
-        "var_dir": "/global/cfs/cdirs/m4374/input_datasets/year2_EC-Earth3P-HR_highressst-present_r3i1f1p1/CMIP6HighResMIPEC-Earth-ConsortiumEC-Earth3P-HRhighresSST-presentr3i1p1f1grv20190509/ps/",
-        "file_str": "ps_6hrPlevPt_EC-Earth3P-HR_highresSST-present_r3i1p1f1_gr_YYYY01010000-YYYY12311800.nc"
-      },
-      {
-        "var_name": "pr",
-        "varname_infile": "pr",
-        "format_saved": "yearly",
-        "freqency": "3-hourly",
-        "var_dir": "/global/cfs/cdirs/m4374/input_datasets/year2_EC-Earth3P-HR_highressst-present_r3i1f1p1/CMIP6HighResMIPEC-Earth-ConsortiumEC-Earth3P-HRhighresSST-presentr3i1p1f1grv20190509/pr/",
-        "file_str": "pr_6hrPlevPt_EC-Earth3P-HR_highresSST-present_r3i1p1f1_gr_YYYY01010000-YYYY12311800.nc"
-      },
-      {
-        "var_name": "rlut",
-        "varname_infile": "rlut",
-        "format_saved": "yearly",
-        "freqency": "3-hourly",
-        "var_dir": "/global/cfs/cdirs/m4374/input_datasets/year2_EC-Earth3P-HR_highressst-present_r3i1f1p1/CMIP6HighResMIPEC-Earth-ConsortiumEC-Earth3P-HRhighresSST-presentr3i1p1f1grv20190509/rlut/",
-        "file_str": "rlut_6hrPlevPt_EC-Earth3P-HR_highresSST-present_r3i1p1f1_gr_YYYY01010000-YYYY12311800.nc"
-      },
-      {
-        "var_name": "cloudtracknumber",
-        "varname_infile": "cloudtracknumber",
-        "format_saved": "3-hourly",
+        "var_name": "mpr",
+        "varname_infile": "mtpr",
+        "format_saved": "monthly",
         "freqency": "hourly",
-        "var_dir": "/global/cfs/cdirs/m4374/catalogues/raw_catalogue_files/highresmip/CMIP6HighResMIPEC-Earth-ConsortiumEC-Earth3P-HRhighresSST-presentr3i1p1f1grv20190509/MCS/mcstracking/",
-        "file_str": "mcstrack_YYYYMMDD_HH00.nc"
+        "var_dir": "/neelin2020/ERA-5/NC_FILES/",
+        "file_str": "era-5.X.YYYY.MM.nc"
       }
   ]   
 }

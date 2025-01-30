@@ -1,14 +1,13 @@
 {
   "feature" : [
      {
-        "name":"MCS_FLEXTRKR_tropics",
-        "feature_sources": "EC-Earth3P-HR_highresSST-present_r3i1p1f1",
-        "feature_environment_sources": "EC-Earth3P-HR_highresSST-present_r3i1p1f1",
-	"is_same_latlon": "True",
-        "track_frequency": "3-hourly",
+        "name":"NonMCS_FLEXTRKR_tropics",
+        "feature_sources": "GPM-IMERG",
+        "feature_environment_sources": "ERA5",
+        "track_frequency": "hourly",
         "is_feature_track": "True",
         "is_feature_mask": "False",
-        "track_data": "/pscratch/sd/w/wmtsai/featenv_analysis/data/EC-Earth3P-HR_highresSST-present_r3i1p1f1/mcs_inputs/mcs_tracks_input.1950.nc",
+        "track_data": "/scratch/wmtsai/temp_mcs/mcs_stats/mcs_tracks_non2mcs/featenv_track_input/MCS_FLEXTRKR_tropics30NS.2001.nc",
         "box_size_degree": "10" 
     }
    ]

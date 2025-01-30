@@ -253,17 +253,17 @@ if __name__ == '__main__':
 
     catalog_name = sys.argv[1]
     year = sys.argv[2]
-    featenv_dir = Path('/pscratch/sd/w/wmtsai/featenv_analysis/dataset/{}/{}'.format(catalog_name, year))
+    featenv_dir = Path('/scratch/wmtsai/featenv_analysis/dataset/{}/{}'.format(catalog_name, year))
     print('feature_environment_dir: ', featenv_dir)
     var3d_dir = featenv_dir / 'environment_catalogs/VARS_3D'
     var2d_dir = featenv_dir / 'environment_catalogs/VARS_2D'
 
-    # load standard outputs of the feature-environment catalogue
-    data_T = xr.open_dataset(var3d_dir / '{}_T.merged.nc'.format(catalog_name))
-    data_q = xr.open_dataset(var3d_dir / '{}_q.merged.nc'.format(catalog_name))
-    data_d2m = xr.open_dataset(var2d_dir / '{}_2d.merged.nc'.format(catalog_name))
-    data_t2m = xr.open_dataset(var2d_dir / '{}_2t.merged.nc'.format(catalog_name))
-    data_sp = xr.open_dataset(var2d_dir / '{}_sp.merged.nc'.format(catalog_name))
+    # load standard outputs of the feature-environment catalogue + transpose into the specified coorindate for computing
+    data_T = xr.open_dataset(var3d_dir / '{}_T.merged.nc'.format(catalog_name)).transpose("tracks","time","level","y","x")
+    data_q = xr.open_dataset(var3d_dir / '{}_q.merged.nc'.format(catalog_name)).transpose("tracks","time","level","y","x")
+    data_d2m = xr.open_dataset(var2d_dir / '{}_2d.merged.nc'.format(catalog_name)).transpose("tracks","time","y","x")
+    data_t2m = xr.open_dataset(var2d_dir / '{}_2t.merged.nc'.format(catalog_name)).transpose("tracks","time","y","x")
+    data_sp = xr.open_dataset(var2d_dir / '{}_sp.merged.nc'.format(catalog_name)).transpose("tracks","time","y","x")
 
     # loop for tracks
     BL_merged = []
