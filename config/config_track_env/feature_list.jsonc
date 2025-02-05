@@ -7,7 +7,7 @@
         "track_frequency": "hourly",
         "is_feature_track": "True",
         "is_feature_mask": "False",
-        "track_data": "/scratch/wmtsai/temp_mcs/mcs_stats/mcs_tracks_non2mcs/featenv_track_input/MCS_FLEXTRKR_tropics30NS.2001.nc",
+        "track_data": "/scratch/wmtsai/PyFLEXTRKR/data/mcs_tbpf/TMeCSR_9km/stats/subsample/mcs_tracks_final_tropics30NS_nonrobust.nc",
         "box_size_degree": "10" 
     }
    ]

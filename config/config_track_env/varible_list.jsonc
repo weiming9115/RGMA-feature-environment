@@ -1,11 +1,12 @@
 {
   "variable_inputs": [
       {
-        "var_name": "mpr",
-        "varname_infile": "mtpr",
+        "var_name": "omega",
+        "varname_infile": "w",
+        "specified_level" : "None",
         "format_saved": "monthly",
         "freqency": "hourly",
-        "var_dir": "/neelin2020/ERA-5/NC_FILES/",
+        "var_dir": "/scratch/wmtsai/ERA-5/NC_FILES/",
         "file_str": "era-5.X.YYYY.MM.nc"
       }
   ]   

@@ -1,0 +1,22 @@
+---
+# Subsampling MCS tracks identified from PyFLEXTRKR
+
+# Processing steps:
+stats_path : '/scratch/wmtsai/PyFLEXTRKR/data/mcs_tbpf/TMeCSR_9km/stats'
+
+# Specify tracking input data date/time string format
+# E.g., databasename20181101.011503.nc --> yyyymodd.hhmmss
+# E.g., databasename2018-11-01_01:15:00 --> yyyy-mo-dd_hh:mm:ss
+time_format: 'yyyymodd'
+# default "stats" file is named as "xxx_final_" 
+databasename:  'mcs_tracks_final_'  # Note: include all strings before the time (including "_", ".")
+
+# Specfiy parameters used for the subsampling process
+geolimits: [-30, -360, 30, 360] # 4-element array to subset geolimits for tracks [lat_min, lon_min, lat_max, lon_max]
+mcsstat_robust: True # strict MCS, continuity in the mcs_status, False --> allow discontinuity 
+min_duration: 5 # 5 hours. 5 hour --> minimum value for the MCS-stage analysis (CCS + 5 MCS life stages)
+
+# Output directory for the subsampling tracking data
+output_path: '/scratch/wmtsai/PyFLEXTRKR/data/mcs_tbpf/TMeCSR_9km/stats/subsample'
+output_name: 'mcs_tracks_final_tropics30NS_robust' # name for the output netcdf file
+
